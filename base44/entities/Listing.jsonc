@@ -1,0 +1,190 @@
+{
+  "name": "Listing",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "category_id": {
+      "type": "string"
+    },
+    "subcategory_id": {
+      "type": "string"
+    },
+    "brand": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "condition": {
+      "type": "string",
+      "enum": [
+        "new",
+        "like_new",
+        "good",
+        "fair",
+        "worn"
+      ]
+    },
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "video_url": {
+      "type": "string"
+    },
+    "location_lat": {
+      "type": "number"
+    },
+    "location_lng": {
+      "type": "number"
+    },
+    "location_city": {
+      "type": "string"
+    },
+    "location_address": {
+      "type": "string"
+    },
+    "delivery_pickup": {
+      "type": "boolean",
+      "default": true
+    },
+    "delivery_owner": {
+      "type": "boolean",
+      "default": false
+    },
+    "delivery_courier": {
+      "type": "boolean",
+      "default": false
+    },
+    "ai_value": {
+      "type": "number",
+      "description": "AI-estimated item value in BGN"
+    },
+    "deposit_amount": {
+      "type": "number",
+      "description": "20% of AI value"
+    },
+    "daily_price": {
+      "type": "number",
+      "description": "Daily rental price in BGN"
+    },
+    "weekly_price": {
+      "type": "number"
+    },
+    "monthly_price": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string",
+      "default": "BGN"
+    },
+    "is_insured": {
+      "type": "boolean",
+      "default": false
+    },
+    "insurance_price": {
+      "type": "number",
+      "default": 10
+    },
+    "is_promoted": {
+      "type": "boolean",
+      "default": false,
+      "description": "Paid promotion \u2014 appears in top section and more often in feed"
+    },
+    "promoted_until": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Promotion expiry date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "pending_review",
+        "active",
+        "archived",
+        "suspended",
+        "deleted"
+      ],
+      "default": "draft"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "owner_name": {
+      "type": "string"
+    },
+    "owner_email": {
+      "type": "string"
+    },
+    "is_business": {
+      "type": "boolean",
+      "default": false
+    },
+    "business_id": {
+      "type": "string"
+    },
+    "view_count": {
+      "type": "number",
+      "default": 0
+    },
+    "rating_avg": {
+      "type": "number",
+      "default": 0
+    },
+    "rating_count": {
+      "type": "number",
+      "default": 0
+    },
+    "last_active": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "availability_blocked_dates": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "title",
+    "category_id",
+    "daily_price"
+  ],
+  "rls": {
+    "create": {},
+    "read": {},
+    "update": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

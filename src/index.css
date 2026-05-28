@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    /* Brand colors from RentMe logo */
+    /* Navy blue: #1e2a6e | Purple: #7b2ff7 | Magenta/Pink: #e91e8c */
+
+    --background: 0 0% 98%;
+    --foreground: 230 50% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 230 50% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 230 50% 12%;
+    --primary: 253 92% 57%;       /* #7b2ff7 purple */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 230 60% 97%;
+    --secondary-foreground: 230 50% 20%;
+    --muted: 230 30% 96%;
+    --muted-foreground: 230 20% 50%;
+    --accent: 325 80% 52%;        /* #e91e8c magenta */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 230 20% 90%;
+    --input: 230 20% 90%;
+    --ring: 253 92% 57%;
+    --radius: 0.875rem;
+
+    --navy: 230 57% 27%;          /* #1e2a6e navy */
+    --navy-foreground: 0 0% 100%;
+
+    --chart-1: 253 92% 57%;
+    --chart-2: 325 80% 52%;
+    --chart-3: 230 57% 27%;
+    --chart-4: 160 60% 45%;
+    --chart-5: 40 90% 55%;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 230 50% 12%;
+    --sidebar-primary: 253 92% 57%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 230 60% 97%;
+    --sidebar-accent-foreground: 230 50% 20%;
+    --sidebar-border: 230 20% 90%;
+    --sidebar-ring: 253 92% 57%;
+
+    --success: 160 60% 40%;
+    --success-foreground: 0 0% 100%;
+    --warning: 40 90% 55%;
+    --warning-foreground: 30 80% 15%;
+  }
+
+  .dark {
+    --background: 230 40% 8%;
+    --foreground: 220 15% 95%;
+    --card: 230 40% 11%;
+    --card-foreground: 220 15% 95%;
+    --popover: 230 40% 11%;
+    --popover-foreground: 220 15% 95%;
+    --primary: 253 92% 65%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 230 30% 16%;
+    --secondary-foreground: 220 15% 90%;
+    --muted: 230 30% 16%;
+    --muted-foreground: 220 10% 55%;
+    --accent: 325 80% 60%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 230 25% 18%;
+    --input: 230 25% 18%;
+    --ring: 253 92% 65%;
+    --chart-1: 253 92% 65%;
+    --chart-2: 325 80% 60%;
+    --chart-3: 220 60% 55%;
+    --chart-4: 160 60% 50%;
+    --chart-5: 40 90% 60%;
+    --sidebar-background: 230 40% 11%;
+    --sidebar-foreground: 220 15% 95%;
+    --sidebar-primary: 253 92% 65%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 230 30% 16%;
+    --sidebar-accent-foreground: 220 15% 90%;
+    --sidebar-border: 230 25% 18%;
+    --sidebar-ring: 253 92% 65%;
+    --success: 160 60% 50%;
+    --success-foreground: 0 0% 100%;
+    --warning: 40 90% 60%;
+    --warning-foreground: 30 80% 10%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-body;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    line-height: 1.25;
+  }
+}
+
+/* Brand gradient: purple → magenta */
+.gradient-brand {
+  background: linear-gradient(135deg, #7b2ff7 0%, #c41fc4 50%, #e91e8c 100%);
+}
+
+/* Alias for existing usage */
+.gradient-bg {
+  background: linear-gradient(135deg, #7b2ff7 0%, #c41fc4 50%, #e91e8c 100%);
+}
+
+.gradient-bg-subtle {
+  background: linear-gradient(135deg, rgba(123,47,247,0.07) 0%, rgba(233,30,140,0.07) 100%);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #7b2ff7, #e91e8c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.navy-bg {
+  background-color: #1e2a6e;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.dark .glass {
+  background: rgba(15, 18, 40, 0.92);
+}
+
+/* Card hover lift */
+.card-hover {
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.card-hover:hover {
+  box-shadow: 0 12px 40px rgba(123, 47, 247, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Tooltip fade-scale animation */
+@keyframes fadeScaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Scrollbar hide */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }

@@ -1,0 +1,48 @@
+{
+  "name": "Referral",
+  "type": "object",
+  "properties": {
+    "referrer_email": {
+      "type": "string"
+    },
+    "referrer_id": {
+      "type": "string"
+    },
+    "referred_email": {
+      "type": "string"
+    },
+    "referred_user_id": {
+      "type": "string"
+    },
+    "referral_code": {
+      "type": "string"
+    },
+    "referral_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "converted": {
+      "type": "boolean",
+      "default": false
+    },
+    "conversion_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reward_granted": {
+      "type": "boolean",
+      "default": false
+    },
+    "reward_listing_id": {
+      "type": "string"
+    },
+    "reward_expires_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "referrer_email",
+    "referral_code"
+  ]
+}
