@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
+import ProtectedRoute from '@/components/ProtectedRoute';
 import { I18nProvider } from '@/lib/i18n.jsx';
 
 // Layout
@@ -59,24 +60,35 @@ const AuthenticatedApp = () => {
   return (
     <Routes>
       <Route element={<AppLayout />}>
+
+        {/* Public */}
         <Route path="/" element={<Home />} />
         <Route path="/browse" element={<Browse />} />
         <Route path="/listing/:id" element={<ListingDetail />} />
-        <Route path="/create-listing" element={<CreateListing />} />
         <Route path="/book/:id" element={<BookingFlow />} />
-        <Route path="/booking/:id" element={<BookingDetail />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/wallet" element={<WalletPage />} />
-        <Route path="/messages" element={<Messages />} />
-        <Route path="/notifications" element={<Notifications />} />
-        <Route path="/settings" element={<Settings />} />
         <Route path="/how-it-works" element={<HowItWorksPage />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/favorites" element={<Favorites />} />
-        <Route path="/listing/:listingId/chat" element={<ListingChat />} />
-        <Route path="/dispute/:id" element={<DisputePage />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+
+        {/* Authenticated */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/wallet" element={<WalletPage />} />
+          <Route path="/messages" element={<Messages />} />
+          <Route path="/notifications" element={<Notifications />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/create-listing" element={<CreateListing />} />
+          <Route path="/booking/:id" element={<BookingDetail />} />
+          <Route path="/dispute/:id" element={<DisputePage />} />
+          <Route path="/listing/:listingId/chat" element={<ListingChat />} />
+        </Route>
+
+        {/* Admin only */}
+        <Route element={<ProtectedRoute requiredRole="admin" />}>
+          <Route path="/admin" element={<AdminDashboard />} />
+        </Route>
+
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>
