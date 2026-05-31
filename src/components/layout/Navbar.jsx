@@ -7,7 +7,7 @@ import {
   DropdownMenuSeparator, DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import {
-  Plus, Bell, LogOut, Settings, Home, Search, User, MessageSquare
+  Plus, Bell, LogOut, Settings, Home, Search, User, MessageSquare, Menu, X
 } from 'lucide-react';
 
 const LOGO_URL = 'https://media.base44.com/images/public/69c469273e636ee05afbc0bf/df76933c9_IMG_7117.png';
@@ -25,6 +25,7 @@ export default function Navbar() {
   const [notifCount, setNotifCount] = useState(0);
   const [unreadMessages, setUnreadMessages] = useState(0);
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => setUser(null));
@@ -65,6 +66,9 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Close mobile menu on route change
+  useEffect(() => { setMenuOpen(false); }, [location.pathname]);
+
   const isActive = (path) => location.pathname === path;
 
   const scrollTo = (id) => {
@@ -93,8 +97,8 @@ export default function Navbar() {
               />
             </Link>
 
-            {/* Primary Nav — center, always visible */}
-            <div className="flex items-center gap-1">
+            {/* Primary Nav — hidden on mobile, shown on md+ */}
+            <div className="hidden md:flex items-center gap-1">
               {publicNavItems.map(item => (
                 <button
                   key={item.label}
@@ -108,6 +112,14 @@ export default function Navbar() {
 
             {/* Right actions */}
             <div className="flex items-center gap-2">
+              {/* Hamburger — mobile only */}
+              <button
+                className="md:hidden p-2 rounded-xl text-gray-500 hover:text-[#7b2ff7] hover:bg-purple-50 transition-all"
+                onClick={() => setMenuOpen(o => !o)}
+                aria-label="Toggle menu"
+              >
+                {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
               {user ? (
                 <>
                   <Link to="/notifications" className="relative">
@@ -205,6 +217,37 @@ export default function Navbar() {
             </div>
 
           </div>
+
+        {/* Mobile dropdown menu */}
+        {menuOpen && (
+          <div className="md:hidden border-t border-gray-100 bg-white px-5 py-4 space-y-1">
+            {publicNavItems.map(item => (
+              <button
+                key={item.label}
+                onClick={item.action}
+                className="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:text-[#7b2ff7] hover:bg-purple-50 transition-all"
+              >
+                {item.label}
+              </button>
+            ))}
+            {!user && (
+              <div className="pt-2 border-t border-gray-100 flex flex-col gap-2">
+                <button
+                  onClick={() => base44.auth.redirectToLogin()}
+                  className="w-full px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:text-[#7b2ff7] hover:bg-purple-50 transition-all text-left"
+                >
+                  {lang === 'bg' ? 'Вход' : 'Login'}
+                </button>
+                <button
+                  onClick={() => base44.auth.redirectToLogin()}
+                  className="w-full px-4 py-3 rounded-xl text-sm font-semibold gradient-brand text-white shadow-brand hover:opacity-90 transition-opacity text-center"
+                >
+                  {lang === 'bg' ? 'Регистрация' : 'Sign Up'}
+                </button>
+              </div>
+            )}
+          </div>
+        )}
         </div>
       </nav>
 

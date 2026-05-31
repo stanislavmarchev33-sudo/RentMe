@@ -31,6 +31,9 @@ import AdminDashboard from '@/pages/AdminDashboard';
 import Favorites from '@/pages/Favorites';
 import ListingChat from '@/pages/ListingChat';
 import DisputePage from '@/pages/DisputePage';
+import TermsPage from '@/pages/TermsPage';
+import PrivacyPage from '@/pages/PrivacyPage';
+import InsuranceInfoPage from '@/pages/InsuranceInfoPage';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -69,6 +72,9 @@ const AuthenticatedApp = () => {
         <Route path="/how-it-works" element={<HowItWorksPage />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/terms" element={<TermsPage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/insurance-info" element={<InsuranceInfoPage />} />
 
         {/* Authenticated */}
         <Route element={<ProtectedRoute />}>
