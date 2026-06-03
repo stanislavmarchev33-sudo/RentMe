@@ -70,8 +70,8 @@ export default function CategoriesSection() {
           </Link>
         </div>
 
-        {/* 2-column grid */}
-        <div className="grid grid-cols-2 gap-4">
+        {/* 3-column grid */}
+        <div className="grid grid-cols-3 gap-4">
           {CATEGORIES.map((cat, i) => {
             const name = lang === 'bg' ? cat.name_bg : cat.name_en;
             return (

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Toaster } from "@/components/ui/toaster"
 import { Toaster as SonnerToaster } from "sonner"
 import { QueryClientProvider } from '@tanstack/react-query'
@@ -8,6 +9,7 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import { I18nProvider } from '@/lib/i18n.jsx';
+import { base44 } from '@/api/base44Client';
 
 // Layout
 import AppLayout from '@/components/layout/AppLayout';
@@ -34,6 +36,11 @@ import DisputePage from '@/pages/DisputePage';
 import TermsPage from '@/pages/TermsPage';
 import PrivacyPage from '@/pages/PrivacyPage';
 import InsuranceInfoPage from '@/pages/InsuranceInfoPage';
+
+const LoginRedirect = () => {
+  useEffect(() => { base44.auth.redirectToLogin(); }, []);
+  return null;
+};
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -66,6 +73,7 @@ const AuthenticatedApp = () => {
 
         {/* Public */}
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginRedirect />} />
         <Route path="/browse" element={<Browse />} />
         <Route path="/listing/:id" element={<ListingDetail />} />
         <Route path="/book/:id" element={<BookingFlow />} />
@@ -75,6 +83,7 @@ const AuthenticatedApp = () => {
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/insurance-info" element={<InsuranceInfoPage />} />
+        <Route path="/dispute/:id" element={<DisputePage />} />
 
         {/* Authenticated */}
         <Route element={<ProtectedRoute />}>
@@ -86,7 +95,6 @@ const AuthenticatedApp = () => {
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/create-listing" element={<CreateListing />} />
           <Route path="/booking/:id" element={<BookingDetail />} />
-          <Route path="/dispute/:id" element={<DisputePage />} />
           <Route path="/listing/:listingId/chat" element={<ListingChat />} />
         </Route>
 

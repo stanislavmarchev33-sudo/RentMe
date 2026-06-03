@@ -58,13 +58,19 @@ export default function Browse() {
 
   const { data: listings = [], isLoading } = useQuery({
     queryKey: ['listings-browse'],
-    queryFn: () => base44.entities.Listing.filter({ status: 'active' }, '-created_date', 200),
+    queryFn: async () => {
+      const response = await base44.entities.Listing.filter({ status: 'active' }, '-created_date', 200);
+      return Array.isArray(response) ? response : response?.data ?? [];
+    },
     initialData: [],
   });
 
   const { data: categories = [] } = useQuery({
     queryKey: ['categories'],
-    queryFn: () => base44.entities.Category.list('sort_order', 50),
+    queryFn: async () => {
+      const response = await base44.entities.Category.list('sort_order', 50);
+      return Array.isArray(response) ? response : response?.data ?? [];
+    },
     initialData: [],
   });
 

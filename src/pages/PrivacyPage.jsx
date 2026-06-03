@@ -23,7 +23,7 @@ export default function PrivacyPage() {
       <Section title="1. Администратор на лични данни">
         <p>
           Администратор на личните ви данни е <strong>RentMe ЕООД</strong>, вписано в Търговския
-          регистър с ЕИК [предстои], със седалище и адрес на управление: гр. София, България.
+          регистър с ЕИК — в процес на регистрация, със седалище и адрес на управление: гр. София, България.
         </p>
         <p>
           Можете да се свържете с нас на: <a href="mailto:privacy@rentmemarket.com" className="text-primary hover:underline">privacy@rentmemarket.com</a>
